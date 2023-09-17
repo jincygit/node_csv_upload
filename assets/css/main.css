@@ -131,7 +131,7 @@ section {
   height: 55px;
   transition: all 0.5s;
   z-index: 997;
-  background: #f1882e;
+  background: #20a4f1;
 }
 
 .header.sticked {
@@ -624,7 +624,7 @@ section {
 }
 
 .img-bg {
-  height: 1114px;
+  /* height: 1114px; */
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;

@@ -1,0 +1,253 @@
+<main id="main">
+
+    <!-- ======= Hero Slider Section ======= -->
+    <section id="hero-slider" class="hero-slider">
+      <div class="container-md" data-aos="fade-in">
+        <div class="row">
+          <div class="col-12">
+            <div class="swiper sliderFeaturedPosts">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <a href="" class="img-bg d-flex align-items-end" style="background-image: url('/images/slider.jpg');">
+                    <div class="img-bg-inner">
+                      <!-- <h2>Create projects</h2> -->
+                      <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque est mollitia! Beatae minima assumenda repellat harum vero, officiis ipsam magnam obcaecati cumque maxime inventore repudiandae quidem necessitatibus rem atque.</p> -->
+                    </div>
+                  </a>
+                </div>
+
+                
+              </div>
+              <div class="custom-swiper-button-next">
+                <span class="bi-chevron-right"></span>
+              </div>
+              <div class="custom-swiper-button-prev">
+                <span class="bi-chevron-left"></span>
+              </div>
+
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Hero Slider Section -->
+
+
+    <!-- ======= Project Detail Start ======= -->
+    <section>
+      <div class="">
+          <div class="d-flex justify-content-center row">
+              <div class="col-md-10">
+                  <div class="row p-2 bg-white border rounded" style="width: 1118px;margin-left: 2px;">
+                      <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="/images/unicorn.jpg"></div>
+                      <div class="col-md-6 mt-1">
+                          <h5 style="    font-size: calc(1.3rem + .6vw);"><%= csvFile.fileName %></h5>
+                          <div class="d-flex flex-row">
+                              <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span></h5>
+                                <div class="d-flex flex-row"></span>
+                          </div>
+                          <div class="file-name">
+                            <%= csvFile.fileName %>
+                        </div>
+                          <input type="hidden" id="projectId" value="<%= csvFile._id %>">
+                          <div class="mt-1 mb-1 spec-1"><span<%= csvFile._id %></span></div>
+                          
+                      </div>
+                      
+                  </div>
+              </div>
+          </div>
+      </div>
+    </section>
+    <!-- ======= Project Detail End ======= -->
+
+
+    <!-- ======= List Data Start ======= -->
+    <section>
+      <div class="">
+        <h2 style="margin-left: 70px; text-align: center;">Display all data in csv File </h2>
+        </div>
+
+
+          <div class="d-flex justify-content-center row listing">
+              <div class="col-md-10" >
+                <center>
+
+
+                  <div id="issues-list-container">
+                    <div class="row p-2 bg-white border rounded" style="width: 1118px;" id="issue-<%= csvFile._id %>">
+                        <div class="col-md-6 mt-1" style="width: 1118px;">
+                            <!-- CSV data starts-->
+                            <div id="filePage" style="width: 1118px;">
+                                <!-- heading starts  -->
+                                <div class="heading">
+                                    <a href="/" style="text-decoration: none;">
+                                        <h1 class="headingText"> <%= csvFile.fileName %></h1>
+                                    </a>
+                                </div>
+                                <!-- heading ends  -->
+                            
+
+                                <!-- serarch box starts  -->
+                                <div id="search-box">
+                                    <div class="div">
+                                        <span>Select columns for Searching </span>
+                                        <select class="select" name="option" id="opt">
+                                            <% for(let i=0; i<head.length; i++){ %>
+                                                <option value="<%= i %>">
+                                                    <%= head[i] %>
+                                                </option>
+                                                <% } %>
+                                        </select>
+                                    </div>
+                                   
+                                    <!-- Search filter starts -->
+                                    <!-- <center> -->
+                                        <div class="search" style="    margin: 11px 0px 0px -320px;">
+                                            <input  class="search-txt" name="search" id="search" onkeyup='searchTable()' placeholder="Type to search matching rows with selected columns" autocomplete="off">      
+                                        </div>
+                                    
+                                    <!-- </center> -->
+                                    <!-- Search filter ends -->
+                                </div>
+                                <!-- serarch box ends  -->
+                            
+                            
+                            
+                            
+                            
+                                
+                                <div class="container" style="width: 1118px; margin: 28px 0px 0px -42px">
+                            
+                                    <!-- data table  -->
+                                    <table id="sortTable" style="width: 1118px;">
+                                        <thead>
+                                            <tr>
+                            
+                                                <%for(let i=0; i<head.length; i++){%>
+                                                    <th>
+                                                        <div class="headRowHeading">
+                                                            <%= head[i]%>
+                                                                <i class="fa-solid " ></i>
+                                                        </div>
+                                                    </th>
+                            
+                                                    <%}%>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                            
+                                            <% for(let i=0; i<data.length; i++){ %>
+                                                <tr>
+                            
+                                                    <% for(let j=0; j<head.length; j++){ %>
+                                                        <td>
+                                                            <%= data[i][head[j]] %>
+                                                        </td>
+                            
+                                                        <% } %>
+                                                </tr>
+                                                <% } %>
+                            
+                            
+                            
+                                        </tbody>
+                            
+                                    </table>
+                            
+                            
+                            
+                                </div>
+                                <!-- Pagination starts-->
+                                <!-- <nav id="pagingNav" aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        <li class="page-item"><a class="page-link" href="/csv_upload/details/?file_id=<%= file._id %>&page=1">First</a></li>
+                                        <li class="page-item">
+                                            <%if(page!=1){%>
+                                                <a class="page-link" href="/csv_upload/details/?file_id=<%= file._id %>&page=<%=page-1%>">
+                                                    <%=page-1%>
+                                                </a>
+                                                <%}%>
+                                        </li>
+                                        <li class="page-item "><a class="page-link active-page">
+                                                <%=page%>
+                                            </a></li>
+
+
+                                        <li class="page-item">
+                                            <%if(page!=totalPages){%>
+                                                <a class="page-link" href="/csv_upload/details/?file_id=<%= file._id %>&page=<%=++page%>">
+                                                    <%=page%>
+                                                </a>
+                                                <%}%>
+                                        </li>
+
+                                        <li class="page-item">
+
+                                            <a class="page-link" href="/csv_upload/details/?file_id=<%= file._id %>&page=<%=totalPages%>">
+                                                Last
+                                            </a>
+
+                                        </li>
+
+                                    </ul>
+                                </nav> -->
+                                <!-- Pagination ends-->
+                            </div>
+                            <!-- CSV data ends-->
+                        </div>
+                        
+                    </div>
+
+                    <!-- Pagination starts-->
+                    <nav id="pagingNav" aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="/csv_upload/details/?file_id=<%= file._id %>&page=1">First</a></li>
+                            <li class="page-item">
+                                <%if(page!=1){%>
+                                    <a class="page-link" href="/csv_upload/details/?file_id=<%= file._id %>&page=<%=page-1%>">
+                                        <%=page-1%>
+                                    </a>
+                                    <%}%>
+                            </li>
+                            <li class="page-item "><a class="page-link active-page">
+                                    <%=page%>
+                                </a></li>
+
+
+                            <li class="page-item">
+                                <%if(page!=totalPages){%>
+                                    <a class="page-link" href="/csv_upload/details/?file_id=<%= file._id %>&page=<%=++page%>">
+                                        <%=page%>
+                                    </a>
+                                    <%}%>
+                            </li>
+
+                            <li class="page-item">
+
+                                <a class="page-link" href="/csv_upload/details/?file_id=<%= file._id %>&page=<%=totalPages%>">
+                                    Last
+                                </a>
+
+                            </li>
+
+                        </ul>
+                    </nav>
+                    <!-- Pagination ends-->
+                    
+                  </div>
+                  
+                </center>
+              </div>
+          </div>
+      
+    </section>
+    <!-- ======= List Data End ======= -->
+    
+
+</main>
+<!-- End #main -->
+  
+
+<!-- External JavaScript -->
+<script src="/js/file.js"></script>

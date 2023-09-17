@@ -1,19 +1,19 @@
+/** ------------------ IMPORTING PACKAGE ------------------ **/
 const express = require('express');
-
 const router = express.Router();
-const homeController = require('../controllers/home_controller');
+const multer = require('multer');
+
+
+/** ------------------ IMPORTING CONTROLLERS ------------------ **/
+const upload = multer({ dest: 'uploads/files'})
+
 
 console.log('router loaded');
 
 
-router.use('/project', require('./project'));
-router.use('/issues', require('./issues'));
+/** ------------------ MAKING ROUTES TO CONTROLLERS------------------ **/
+router.use('/csv_upload', require('./csv_upload'));
 
 
-
-
-// for any further routes, access from here
-// router.use('/routerName', require('./routerfile));
-
-
+/** ------------------ EXPORTING ROUTER ------------------ **/
 module.exports = router;
