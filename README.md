@@ -82,43 +82,7 @@ Here is the Technology Stack of this Application. which I have used to Built thi
    ```
 ### Access the Application:
    http://localhost:8000/csv_upload/home
-## Directory Structure and flow of The Code
 
-This code follows MVC pattern and hence everything is differentiated and well managed:
-
-    csv-upload
-        |-----assets
-        |       |--- css
-        |       |     |-- file.css
-        |       |     |-- footer.css
-        |       |     |-- header.css
-        |       |     |-- home.css
-        |       |     |-- layout.css
-        |       |--- JS
-        |             |-- file.js
-        |             |-- home.js
-        |------ config
-        |         └--- mongoose.js
-        |------ controller
-        |         └--- home_controller.js
-        |------ models
-        |         └--- file.js
-        |------ routes
-        |         └--- files.js
-        |         └--- index.js
-        |------ uploads
-        |         |--- csv
-        |------ views
-        |         |--- _footer.ejs
-        |         |--- _header.ejs
-        |         |--- file.ejs
-        |         |--- home.ejs
-        |         |--- layout.ejs
-        |------ .gitignore
-        |------ index.js
-        |------ package.json
-        |------ package-lock.json
-        └------ README.md
 
 
 

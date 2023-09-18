@@ -34,7 +34,7 @@ module.exports.upload = async function(req, res) {
             req.flash('error', 'Select CSV files only.');
             return res.status(400).send('Select CSV files only.');
         }
-        // console.log(req.file);
+        // add csv details to db
         let file = await CSV.create({
             fileName: req.file.originalname,
             filePath: req.file.path,
@@ -52,9 +52,7 @@ module.exports.upload = async function(req, res) {
 /** ------------------ EXPORTING FUNCTION To open file viewer page ------------------ **/
 module.exports.view = async function(req, res) {
     try {
-        //console.log(req.params);
         let csvFile = await CSV.findOne({_id: req.params.id});
-        //console.log(csvFile);
         const results = [];
         const header =[];
         fs.createReadStream(csvFile.filePath) //seeting up the path for file upload
@@ -70,7 +68,7 @@ module.exports.view = async function(req, res) {
         .on('end', () => {
             // console.log(results.length);
             // console.log(results);
-            res.render("file", {
+            res.render("csv_file_view", {
                 title: "File Viewer",
                 fileName: csvFile.fileName,
                 csvFile: csvFile,
@@ -88,12 +86,8 @@ module.exports.view = async function(req, res) {
 }
 
 module.exports.showFile = async function (req, res) {
-
-    //console.log('inside showfile', req.query);
-    //console.log(req.params);
-
+    //get file data
     let filePath = await CSV.findById(req.query.file_id);
-    //console.log(filePath);
     const perPageLimit = 100;
 
     const results = [];
@@ -111,25 +105,18 @@ module.exports.showFile = async function (req, res) {
             })
             .on("data", (data) => results.push(data))
             .on("end", () => {
-                //console.log("lenth ... ",results.length);
                 let page = req.query.page;
-                //console.log('page => ',req.query.page);
                 //let startSlice = (page - 1) * perPageLimit + 1;
                 let startSlice = (page - 1) * perPageLimit;
                 let endSlice = page * perPageLimit;
-                //console.log("startSlice ... ",startSlice);
-                //console.log("endSlice ... ",endSlice);
                 let SliceResults = [];
                 let totalPages = Math.ceil(results.length / perPageLimit);
-                //console.log("totalPages ... ",totalPages);
-                //console.log("results ... ",results);
 
                 if (endSlice < results.length) {
                     SliceResults = results.slice(startSlice, endSlice);
                 } else {
                     SliceResults = results.slice(startSlice);
                 }
-                //console.log("SliceResults ... ",SliceResults.length);
                 var displayPagesLength = 0;
                 if((parseInt(parseInt(req.query.page)+parseInt(5)))>=parseInt(totalPages)){
                     displayPagesLength=totalPages;
@@ -138,7 +125,7 @@ module.exports.showFile = async function (req, res) {
                     displayPagesLength=parseInt(parseInt(req.query.page)+5);
                 }
                 //csv_file_details
-                return res.render('file', {
+                return res.render('csv_file_view', {
                     title: filePath.originalName,
                     head: header,
                     data: SliceResults,
@@ -160,7 +147,6 @@ module.exports.showFile = async function (req, res) {
 /** ------------------ EXPORTING FUNCTION To delete the file ------------------ **/
 module.exports.delete = async function(req, res) {
     try {
-        // console.log(req.params);
         let isFile = await CSV.findOne({file: req.params.id});
 
         if(isFile){
