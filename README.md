@@ -68,18 +68,20 @@ Here is the Technology Stack of this Application. which I have used to Built thi
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/jincygit/node_csv_upload.git
    ```
-2. Install NPM packages
+
+2. Start Redis using ubuntu(here this project is not needed but i include this project)
+3. Install NPM packages
    ```sh
    npm install
    ```
-3. Start Redis using ubuntu(here this project is not needed but i include this project)
 4. Run Node project
    ```sh
    npm start
    ```
-
+### Access the Application:
+   http://localhost:8000/csv_upload/home
 ## Directory Structure and flow of The Code
 
 This code follows MVC pattern and hence everything is differentiated and well managed:

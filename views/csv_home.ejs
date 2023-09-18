@@ -36,17 +36,20 @@
         <div class="container contact-form" style=" margin-top: 22px;">
             <form method="POST" action="/csv_upload/upload" id="new-project-form1" enctype="multipart/form-data">
                 <h3>CSV Upload</h3>
-               <div class="row" style="    background-color: #cacbe7;">
-                    <div class="col-md-6">
+               <div class="row" >
+                  <center>
+                    <h6 style="width: 1118px;">validation for selecting only csv files given here</h6>
+                    <div class="col-md-6" style="    background-color: #cacbe7;">
                         <div class="form-group">
                             <input type="file" id="csvFile" name="file" accept=".csv">
                         </div>
                         
-                        <p style="width: 1118px;">validation for selecting only csv files given here</p>
+                        
                         <div class="form-group" style="margin: 0px 0px 14px 0px;">
                             <input type="submit" name="btnSubmit" class="btnContact" value="ADD CSV FILE" />
                         </div>
                     </div>
+                  </center>
                 </div>
             </form>
         </div>

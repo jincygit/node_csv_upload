@@ -26,10 +26,12 @@ module.exports.upload = async function(req, res) {
         console.log(req.file);
         // file is not present
         if(!req.file) {
+            req.flash('error', 'No files were uploaded.');
             return res.status(400).send('No files were uploaded.');
         }
-        // file is not csv
+        // checking if file is csv or not
         if(req.file.mimetype != "text/csv") {
+            req.flash('error', 'Select CSV files only.');
             return res.status(400).send('Select CSV files only.');
         }
         // console.log(req.file);
@@ -40,6 +42,7 @@ module.exports.upload = async function(req, res) {
         });
         return res.redirect('back');
     } catch (error) {
+        req.flash('error', err);
         console.log('Error in fileController/upload', error);
         res.status(500).send('Internal server error');
     }
@@ -49,9 +52,9 @@ module.exports.upload = async function(req, res) {
 /** ------------------ EXPORTING FUNCTION To open file viewer page ------------------ **/
 module.exports.view = async function(req, res) {
     try {
-        console.log(req.params);
+        //console.log(req.params);
         let csvFile = await CSV.findOne({_id: req.params.id});
-        console.log(csvFile);
+        //console.log(csvFile);
         const results = [];
         const header =[];
         fs.createReadStream(csvFile.filePath) //seeting up the path for file upload
@@ -86,12 +89,12 @@ module.exports.view = async function(req, res) {
 
 module.exports.showFile = async function (req, res) {
 
-    console.log('inside showfile', req.query);
+    //console.log('inside showfile', req.query);
     //console.log(req.params);
 
     let filePath = await CSV.findById(req.query.file_id);
     //console.log(filePath);
-    const perPageLimit = 4;
+    const perPageLimit = 100;
 
     const results = [];
     const header = [];
