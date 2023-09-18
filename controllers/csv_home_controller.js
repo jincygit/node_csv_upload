@@ -87,10 +87,10 @@ module.exports.view = async function(req, res) {
 module.exports.showFile = async function (req, res) {
 
     console.log('inside showfile', req.query);
-    console.log(req.params);
+    //console.log(req.params);
 
     let filePath = await CSV.findById(req.query.file_id);
-    console.log(filePath);
+    //console.log(filePath);
     const perPageLimit = 4;
 
     const results = [];
@@ -108,18 +108,31 @@ module.exports.showFile = async function (req, res) {
             })
             .on("data", (data) => results.push(data))
             .on("end", () => {
-                console.log(results.length);
+                //console.log("lenth ... ",results.length);
                 let page = req.query.page;
-                console.log('page => ',req.query.page);
-                let startSlice = (page - 1) * perPageLimit + 1;
+                //console.log('page => ',req.query.page);
+                //let startSlice = (page - 1) * perPageLimit + 1;
+                let startSlice = (page - 1) * perPageLimit;
                 let endSlice = page * perPageLimit;
+                //console.log("startSlice ... ",startSlice);
+                //console.log("endSlice ... ",endSlice);
                 let SliceResults = [];
                 let totalPages = Math.ceil(results.length / perPageLimit);
+                //console.log("totalPages ... ",totalPages);
+                //console.log("results ... ",results);
 
                 if (endSlice < results.length) {
-                    SliceResults = results.slice(startSlice, endSlice + 1);
+                    SliceResults = results.slice(startSlice, endSlice);
                 } else {
                     SliceResults = results.slice(startSlice);
+                }
+                //console.log("SliceResults ... ",SliceResults.length);
+                var displayPagesLength = 0;
+                if((parseInt(parseInt(req.query.page)+parseInt(5)))>=parseInt(totalPages)){
+                    displayPagesLength=totalPages;
+                }else{
+                    
+                    displayPagesLength=parseInt(parseInt(req.query.page)+5);
                 }
                 //csv_file_details
                 return res.render('file', {
@@ -128,7 +141,9 @@ module.exports.showFile = async function (req, res) {
                     data: SliceResults,
                     length: results.length,
                     page: req.query.page,
-                    totalPages: totalPages,
+                    currentPage: parseInt(req.query.page),
+                    displayPagesLength: parseInt(displayPagesLength),
+                    totalPages: parseInt(totalPages),
                     file: filePath,
                     csvFile: filePath,
                 })

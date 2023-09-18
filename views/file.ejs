@@ -33,7 +33,7 @@
     </section><!-- End Hero Slider Section -->
 
 
-    <!-- ======= Project Detail Start ======= -->
+    <!-- ======= CSV Detail Start ======= -->
     <section>
       <div class="">
           <div class="d-flex justify-content-center row">
@@ -59,7 +59,7 @@
           </div>
       </div>
     </section>
-    <!-- ======= Project Detail End ======= -->
+    <!-- ======= CSV Detail End ======= -->
 
 
     <!-- ======= List Data Start ======= -->
@@ -202,34 +202,26 @@
                     <!-- Pagination starts-->
                     <nav id="pagingNav" aria-label="Page navigation example">
                         <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="/csv_upload/details/?file_id=<%= file._id %>&page=1">First</a></li>
-                            <li class="page-item">
-                                <%if(page!=1){%>
-                                    <a class="page-link" href="/csv_upload/details/?file_id=<%= file._id %>&page=<%=page-1%>">
-                                        <%=page-1%>
+                            <% if(currentPage > 1){ %>
+                                <li class="page-item"><a class="page-link" href="/csv_upload/details/?file_id=<%= file._id %>&page=<%=currentPage-1%>">Prev</a>
+                                </li>
+                            <% } %>
+                        
+                            
+                            <% for(let i=currentPage; i<=parseInt(displayPagesLength); i++){ %>
+                                <li class="page-item ">
+                                    <a class="page-link active-page" href="/csv_upload/details/?file_id=<%= file._id %>&page=<%=i%>">
+                                        <%=i%>
                                     </a>
-                                    <%}%>
-                            </li>
-                            <li class="page-item "><a class="page-link active-page">
-                                    <%=page%>
-                                </a></li>
+                                </li>
+                            <% } %>
 
 
-                            <li class="page-item">
-                                <%if(page!=totalPages){%>
-                                    <a class="page-link" href="/csv_upload/details/?file_id=<%= file._id %>&page=<%=++page%>">
-                                        <%=page%>
-                                    </a>
-                                    <%}%>
-                            </li>
-
-                            <li class="page-item">
-
-                                <a class="page-link" href="/csv_upload/details/?file_id=<%= file._id %>&page=<%=totalPages%>">
-                                    Last
-                                </a>
-
-                            </li>
+                            <% if(currentPage < totalPages){ %>
+                                <li class="page-item"><a class="page-link" href="/csv_upload/details/?file_id=<%= file._id %>&page=<%=currentPage+1%>">Next</a>
+                                </li>
+                            <% } %>
+                           
 
                         </ul>
                     </nav>
@@ -247,7 +239,7 @@
 
 </main>
 <!-- End #main -->
-  
+
 
 <!-- External JavaScript -->
 <script src="/js/file.js"></script>
